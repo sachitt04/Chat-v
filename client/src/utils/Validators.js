@@ -36,4 +36,14 @@ export const bioValidator = (bio) => {
     return "";
 };
 
+export const avatarFileValidator = (file) => {
+    const allowedFormats = ['image/jpeg', 'image/png', 'image/gif'];
+    const maxSize = 5;
+    if (!file) return "Avatar is required";
+    if (!allowedFormats.includes(file.type)) return "Only JPEG, PNG, and GIF files are allowed";
+    if (file.size > maxSize * 1024 * 1024) return `File size must be less than ${maxSize} MB`;
+    
+    return "";
+}
+
 

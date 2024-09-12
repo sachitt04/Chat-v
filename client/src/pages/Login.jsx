@@ -3,12 +3,35 @@ import React, { useState } from 'react'
 import {Button, Container,Paper, TextField, Typography,Stack,Avatar, IconButton} from '@mui/material'
 import {CameraAlt as CameraAltIcon} from "@mui/icons-material"
 import { VisuallyHiddenInput } from '../components/styles/StyledComponents' 
-import { usernameValidator,passwordValidator,nameValidator,bioValidator } from '../utils'
+import { usernameValidator,passwordValidator,nameValidator,bioValidator, avatarFileValidator } from '../utils'
 // 
 const Login = () => {
     const [isLogin,setIsLogin] = useState(true)
+    const [name,setName]= useState("")
+    const [password,setPassword]= useState("")
+    const [bio,setBio]= useState("")
+    const [username,setUsername]= useState("")
+    const [avatar,setAvatar]= useState(null)
     const toggleLogin = () => {
         setIsLogin(!isLogin)
+    }
+
+    // avatar change
+    const handleAvatarChange = (e) => {
+        const file = e.target.files[0]
+        if (!file){
+            setAvatar(null)
+        }
+        if(file){
+            setAvatar(avatar)         
+        }
+        const avatarError = avatarFileValidator(file)
+        setErrors(prevErrors => ({
+            ...prevErrors,
+            avatar: avatarError
+        }));
+
+ 
     }
 
      // error messages section
@@ -17,6 +40,7 @@ const Login = () => {
         password:"",
         name:"",
         bio:"",
+        avatar:""
      })
 
      // now getting error messages
@@ -25,6 +49,7 @@ const Login = () => {
         const passwordError = passwordValidator(password)
         const nameError = nameValidator(name)
         const bioError = bioValidator(bio)
+        const avatarError = avatarFileValidator(avatar)
 
              // setting error message
      setErrors({
@@ -32,9 +57,10 @@ const Login = () => {
         password:passwordError,
         name:nameError,
         bio:bioError,
+        avatar:avatarError     
      })
 
-     return !usernameError && !passwordError && (!isLogin ? !nameError && !bioError : true)    
+     return !usernameError && !passwordError && (!isLogin ? !nameError && !bioError && !avatarError: true)    
  }
 
  const handleSubmit = (e) => {
@@ -47,12 +73,6 @@ const Login = () => {
 //  const password = useInputValidation("")
 //  const bio = useInputValidation("")
 //  const username = useInputValidation("")
-    const [name,setName]= useState("")
-    const [password,setPassword]= useState("")
-    const [bio,setBio]= useState("")
-    const [username,setUsername]= useState("")
-
-
   return (
 
     <Container component={"main"} maxWidth="xs"
@@ -133,12 +153,10 @@ const Login = () => {
                     
                     fullWidth
                     variant='text'
-                    onClick={toggleLogin}
-                    
+                    onClick={toggleLogin}                  
                     >
                         Sign Up Instead
-                    </Button>
-                    
+                    </Button>                    
                 </form>
                 </>
             ) : (
@@ -161,6 +179,7 @@ const Login = () => {
                             height:"10rem",
                             objectFit:"contain"
                         }}
+                        src={avatar ? URL.createObjectURL(avatar) : null}
                         />
                         <IconButton sx={{
                             position:"absolute",
