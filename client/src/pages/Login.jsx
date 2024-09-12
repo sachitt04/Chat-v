@@ -4,6 +4,7 @@ import {Button, Container,Paper, TextField, Typography,Stack,Avatar, IconButton}
 import {CameraAlt as CameraAltIcon} from "@mui/icons-material"
 import { VisuallyHiddenInput } from '../components/styles/StyledComponents'
 import {useInputValidation} from "6pp"
+import { usernameValidator } from '../utils/Validators'
 
 const Login = () => {
     const [isLogin,setIsLogin] = useState(true)
@@ -11,10 +12,14 @@ const Login = () => {
         setIsLogin(!isLogin)
     }
 
- const name = useInputValidation("")
- const password = useInputValidation("")
- const bio = useInputValidation("")
- const username = useInputValidation("")
+//  const name = useInputValidation("")
+//  const password = useInputValidation("")
+//  const bio = useInputValidation("")
+//  const username = useInputValidation("")
+    const [name,setName]= useState("")
+    const [password,setPassword]= useState("")
+    const [bio,setBio]= useState("")
+    const [username,setUsername]= useState("")
 
 
   return (
@@ -48,8 +53,10 @@ const Login = () => {
                     label="Username"
                     margin="normal"
                     variant="outlined"
-                    value={username.value}
-                    onChange={username.changeHandler}
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+
+                
                     />
                     <TextField
                     required
@@ -58,8 +65,9 @@ const Login = () => {
                     margin="normal" 
                     type="password"
                     variant="outlined"
-                    value={password.value}
-                    onChange={password.changeHandler}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+ 
                     />
 
                     <Button
@@ -70,6 +78,7 @@ const Login = () => {
                      
                     fullWidth
                     >Login</Button>
+
 
                     <Typography
                     textAlign={"center"}
@@ -138,8 +147,8 @@ const Login = () => {
                     label="Name"
                     margin="normal"
                     variant="outlined"
-                    value={name.value}
-                    onChange={name.changeHandler}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
             
                     /> 
 
@@ -149,8 +158,10 @@ const Login = () => {
                     label="Bio"
                     margin="normal"
                     variant="outlined"
-                    value={bio.value}
-                    onChange={bio.changeHandler}
+                    // value={bio.value}
+                    // onChange={bio.changeHandler}
+                    value={bio}
+                    onChange={(e) => setBio(e.target.value)}
                     /> 
                     <TextField
                     required
@@ -158,9 +169,18 @@ const Login = () => {
                     label="Username"
                     margin="normal"
                     variant="outlined"
-                    value={username.value}
-                    onChange={username.changeHandler}             
+                    // value={username.value}
+                    // onChange={username.changeHandler}       
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}      
                     />
+
+                    {/* {username.error && (
+                        <Typography
+                        color={"error"}
+                        variant="caption"
+                        >{username.error}</Typography>
+                    )} */}
                     <TextField
                     required
                     fullWidth
@@ -168,8 +188,10 @@ const Login = () => {
                     margin="normal" 
                     type="password"
                     variant="outlined"
-                    value={password.value}
-                    onChange={password.changeHandler}
+                    // value={password.value}
+                    // onChange={password.changeHandler}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     />
 
                     <Button
