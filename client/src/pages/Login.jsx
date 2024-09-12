@@ -1,12 +1,21 @@
 
 import React, { useState } from 'react'
-import {Button, Container,Paper, TextField, Typography} from '@mui/material'
+import {Button, Container,Paper, TextField, Typography,Stack,Avatar, IconButton} from '@mui/material'
+import {CameraAlt as CameraAltIcon} from "@mui/icons-material"
+import { VisuallyHiddenInput } from '../components/styles/StyledComponents'
+import {useInputValidation} from "6pp"
 
 const Login = () => {
     const [isLogin,setIsLogin] = useState(true)
     const toggleLogin = () => {
         setIsLogin(!isLogin)
     }
+
+ const name = useInputValidation("")
+ const password = useInputValidation("")
+ const bio = useInputValidation("")
+ const username = useInputValidation("")
+
 
   return (
 
@@ -39,6 +48,8 @@ const Login = () => {
                     label="Username"
                     margin="normal"
                     variant="outlined"
+                    value={username.value}
+                    onChange={username.changeHandler}
                     />
                     <TextField
                     required
@@ -47,6 +58,8 @@ const Login = () => {
                     margin="normal" 
                     type="password"
                     variant="outlined"
+                    value={password.value}
+                    onChange={password.changeHandler}
                     />
 
                     <Button
@@ -61,7 +74,7 @@ const Login = () => {
                     <Typography
                     textAlign={"center"}
                     m={"1rem"}
-                    >Or</Typography>
+                    >OR</Typography>
                     <Button
                     
                     fullWidth
@@ -75,7 +88,6 @@ const Login = () => {
                 </form>
                 </>
             ) : (
-                
                 <>
                 <Typography variant="h5" component="h2">Sign Up</Typography> 
                 <form style={{
@@ -83,37 +95,71 @@ const Login = () => {
                     marginTop:"1rem"
                 }}>
 
-                    <Stack position={"relavtive"} width={"10rem"} margin={"auto"} >
-                        <Avtar
-                        sx={{
+                    <Stack 
+                    position={"relative"}
+                    width={"10rem"}
+                    margin={"auto"}
+                    >
+                        <Avatar
+                        sx = {{
                             width:"10rem",
                             height:"10rem",
-                            objectFit:"cover"
+                            objectFit:"contain"
                         }}
-                        ></Avtar>
+                        />
+                        <IconButton sx={{
+                            position:"absolute",
+                            color:"white",
+                            bottom:0,
+                            right:0,
+                            bgcolor:"rgba(0,0,0,0.5)",
+                            ":hover" : {
+                                bgcolor:"rgba(255, 255, 255, 0.7)"
+                            
+                            }
+                        }} 
+                        component={"label"}
+                        >
+                            <>
+                            <CameraAltIcon/>
+                                <VisuallyHiddenInput type="file" />
+                            
+                            </>
+                        </IconButton>
+
+                        
                     </Stack>
+
+
+
                     <TextField
                     required
                     fullWidth
                     label="Name"
                     margin="normal"
                     variant="outlined"
-                    />
+                    value={name.value}
+                    onChange={name.changeHandler}
+            
+                    /> 
 
-                    <TextField  
+                    <TextField
                     required
                     fullWidth
                     label="Bio"
                     margin="normal"
                     variant="outlined"
-                    />
-
+                    value={bio.value}
+                    onChange={bio.changeHandler}
+                    /> 
                     <TextField
                     required
                     fullWidth
                     label="Username"
                     margin="normal"
                     variant="outlined"
+                    value={username.value}
+                    onChange={username.changeHandler}             
                     />
                     <TextField
                     required
@@ -122,6 +168,8 @@ const Login = () => {
                     margin="normal" 
                     type="password"
                     variant="outlined"
+                    value={password.value}
+                    onChange={password.changeHandler}
                     />
 
                     <Button
@@ -131,24 +179,24 @@ const Login = () => {
                     color="primary"
                      
                     fullWidth
-                    >Login</Button>
+                    >Sign Up</Button>
 
                     <Typography
                     textAlign={"center"}
                     m={"1rem"}
-                    >Or</Typography>
+                    >OR</Typography>
                     <Button
                     
                     fullWidth
                     variant='text'
-                    onClick={toggleLogin}
-                    
+                    onClick={toggleLogin}                   
                     >
                         Login Instead
                     </Button>
                     
                 </form>
                 </>
+ 
             )
         }  
         </Paper>
