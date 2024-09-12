@@ -2,16 +2,47 @@
 import React, { useState } from 'react'
 import {Button, Container,Paper, TextField, Typography,Stack,Avatar, IconButton} from '@mui/material'
 import {CameraAlt as CameraAltIcon} from "@mui/icons-material"
-import { VisuallyHiddenInput } from '../components/styles/StyledComponents'
-import {useInputValidation} from "6pp"
-import { usernameValidator } from '../utils/Validators'
-
+import { VisuallyHiddenInput } from '../components/styles/StyledComponents' 
+import { usernameValidator,passwordValidator,nameValidator,bioValidator } from '../utils'
+// 
 const Login = () => {
     const [isLogin,setIsLogin] = useState(true)
     const toggleLogin = () => {
         setIsLogin(!isLogin)
     }
 
+     // error messages section
+     const [errors,setErrors] = useState({
+        username:"",
+        password:"",
+        name:"",
+        bio:"",
+     })
+
+     // now getting error messages
+     const validateFields = () =>{
+        const usernameError = usernameValidator(username)
+        const passwordError = passwordValidator(password)
+        const nameError = nameValidator(name)
+        const bioError = bioValidator(bio)
+
+             // setting error message
+     setErrors({
+        username:usernameError,
+        password:passwordError,
+        name:nameError,
+        bio:bioError,
+     })
+
+     return !usernameError && !passwordError && (!isLogin ? !nameError && !bioError : true)    
+ }
+
+ const handleSubmit = (e) => {
+    e.preventDefault();
+    if(validateFields()){
+        console.log("Form Submitted")
+    }
+ }
 //  const name = useInputValidation("")
 //  const password = useInputValidation("")
 //  const bio = useInputValidation("")
@@ -45,8 +76,10 @@ const Login = () => {
                 <Typography variant="h5" component="h2">Login</Typography> 
                 <form style={{
                     width:"100%",
-                    marginTop:"1rem"
-                }}>
+                    marginTop:"1rem"          
+                }}
+                onSubmit={handleSubmit}>
+
                     <TextField
                     required
                     fullWidth
@@ -54,10 +87,16 @@ const Login = () => {
                     margin="normal"
                     variant="outlined"
                     value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-
-                
+                    onChange={(e) => setUsername(e.target.value)}              
                     />
+
+                        {errors.username && (
+                        <Typography color='error' variant='caption'>
+                            {errors.username}
+                        </Typography>
+                    )}
+
+
                     <TextField
                     required
                     fullWidth
@@ -69,6 +108,12 @@ const Login = () => {
                     onChange={(e) => setPassword(e.target.value)}
  
                     />
+
+                    {errors.password && (
+                        <Typography color='error' variant='caption'>
+                            {errors.password}
+                        </Typography>
+                    )}
 
                     <Button
                     type="submit"
@@ -102,7 +147,8 @@ const Login = () => {
                 <form style={{
                     width:"100%",
                     marginTop:"1rem"
-                }}>
+                }}
+                onSubmit={handleSubmit}>
 
                     <Stack 
                     position={"relative"}
@@ -131,15 +177,10 @@ const Login = () => {
                         >
                             <>
                             <CameraAltIcon/>
-                                <VisuallyHiddenInput type="file" />
-                            
+                                <VisuallyHiddenInput type="file" />                       
                             </>
-                        </IconButton>
-
-                        
+                        </IconButton>       
                     </Stack>
-
-
 
                     <TextField
                     required
@@ -148,9 +189,13 @@ const Login = () => {
                     margin="normal"
                     variant="outlined"
                     value={name}
-                    onChange={(e) => setName(e.target.value)}
-            
+                    onChange={(e) => setName(e.target.value)}     
                     /> 
+                    {errors.name && (
+                        <Typography color='error' variant='caption'>
+                            {errors.name}
+                        </Typography>
+                    )}
 
                     <TextField
                     required
@@ -163,6 +208,11 @@ const Login = () => {
                     value={bio}
                     onChange={(e) => setBio(e.target.value)}
                     /> 
+                    {errors.bio && (
+                        <Typography color='error' variant='caption'>
+                            {errors.bio}
+                        </Typography>
+                    )}
                     <TextField
                     required
                     fullWidth
@@ -174,13 +224,12 @@ const Login = () => {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}      
                     />
-
-                    {/* {username.error && (
-                        <Typography
-                        color={"error"}
-                        variant="caption"
-                        >{username.error}</Typography>
-                    )} */}
+                    {errors.username && (
+                        <Typography color='error' variant='caption'>
+                            {errors.username}
+                        </Typography>
+                    )}
+ 
                     <TextField
                     required
                     fullWidth
@@ -193,6 +242,12 @@ const Login = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     />
+
+                    {errors.password && (
+                        <Typography color='error' variant='caption'>
+                            {errors.password}
+                        </Typography>
+                    )}
 
                     <Button
                     type="submit"
@@ -214,18 +269,12 @@ const Login = () => {
                     onClick={toggleLogin}                   
                     >
                         Login Instead
-                    </Button>
-                    
+                    </Button>                   
                 </form>
                 </>
- 
-            )
-        }  
+            )}  
         </Paper>
-
-    </Container>
-    
-
+    </Container> 
   )
 }
 
