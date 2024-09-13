@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react'
+import React,{ useEffect, useState } from 'react'
 import {Button, Container,Paper, TextField, Typography,Stack,Avatar, IconButton} from '@mui/material'
 import {CameraAlt as CameraAltIcon} from "@mui/icons-material"
 import { VisuallyHiddenInput } from '../components/styles/StyledComponents' 
@@ -12,6 +12,7 @@ const Login = () => {
     const [bio,setBio]= useState("")
     const [username,setUsername]= useState("")
     const [avatar,setAvatar]= useState(null)
+    const[avatarPreview,setAvatarPreview] = useState(null)
     const toggleLogin = () => {
         setIsLogin(!isLogin)
     }
@@ -23,16 +24,24 @@ const Login = () => {
             setAvatar(null)
         }
         if(file){
-            setAvatar(avatar)         
+            setAvatar(file)         
         }
         const avatarError = avatarFileValidator(file)
         setErrors(prevErrors => ({
             ...prevErrors,
             avatar: avatarError
         }));
-
- 
+        setAvatarPreview(URL.createObjectURL(file))
     }
+
+    useEffect(()=>{
+         return () => {
+            if(avatarPreview){
+                URL.revokeObjectURL(avatarPreview)
+            }
+        }
+
+    },[avatarPreview])
 
      // error messages section
      const [errors,setErrors] = useState({
@@ -179,7 +188,7 @@ const Login = () => {
                             height:"10rem",
                             objectFit:"contain"
                         }}
-                        src={avatar ? URL.createObjectURL(avatar) : null}
+                        src= {avatarPreview || "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"}
                         />
                         <IconButton sx={{
                             position:"absolute",
@@ -196,7 +205,7 @@ const Login = () => {
                         >
                             <>
                             <CameraAltIcon/>
-                                <VisuallyHiddenInput type="file" />                       
+                                <VisuallyHiddenInput type="file" onChange={handleAvatarChange} />                       
                             </>
                         </IconButton>       
                     </Stack>
