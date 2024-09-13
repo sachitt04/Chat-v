@@ -209,6 +209,14 @@ const Login = () => {
                             </>
                         </IconButton>       
                     </Stack>
+                    {errors.avatar && (
+                        <Typography m={"1rem"} 
+                        width={"fit-content"}
+                        display={"block"}
+                        color='error' variant='caption'>
+                            {errors.avatar}
+                        </Typography>
+                    )}
 
                     <TextField
                     required
