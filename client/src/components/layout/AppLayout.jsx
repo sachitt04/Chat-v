@@ -2,7 +2,7 @@ import React from 'react'
 import Header from './Header'
 import Title from '../Shared/Title'
 import {Grid} from "@mui/material"
-import { height } from '../../constants/color'
+ 
 
 const AppLayout = () => (WrappedComponent) => {
  return(props) => {
@@ -10,7 +10,7 @@ const AppLayout = () => (WrappedComponent) => {
         <>
              <Title/>
              <Header/>
-             <Grid  container height={ height} >
+             <Grid  container height={"calc(100vh - 4rem)"} >
                 <Grid item 
                 sm={4} 
                 md={3} 
