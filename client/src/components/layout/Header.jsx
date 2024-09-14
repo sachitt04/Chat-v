@@ -1,9 +1,13 @@
 import React from 'react'
-import { AppBar, Box ,IconButton,Toolbar, Typography } from '@mui/material'
+import { AppBar, Box ,IconButton,Toolbar, Tooltip, Typography } from '@mui/material'
 import { orange ,} from '../../constants/color'
-import {Menu as MenuIcon, Search as SearchICon,Add as AddIcon} from '@mui/icons-material';
+import {Menu as MenuIcon, Search as SearchIcon,Add as AddIcon,
+ Group as GroupIcon,}from '@mui/icons-material';
+ import { useNavigate } from 'react-router-dom';
  
 const Header = () => {
+const navigate = useNavigate();
+
   // handleMobile function
   const handleMobile = () => {
         console.log("handleMoblie")
@@ -17,6 +21,12 @@ const Header = () => {
   // open new group function
   const openNewGroup = () => {
     console.log("openNewGroup")
+  }
+
+  // navigate to group function
+  const navigateToGroup = () => {
+    console.log("navigateToGroup")
+    navigate("/group")
   }
 
   return (
@@ -44,7 +54,7 @@ const Header = () => {
           sx={{
             display:{
               xs:"block",sm:"none"}}}>
-                
+
                 {/* Menu button */}
             <IconButton color='inherit' onClick={handleMobile}>
               <MenuIcon /> 
@@ -55,15 +65,13 @@ const Header = () => {
 
           <Box>
             {/* Search button */}
-          <IconButton color='inherit' size='large' onClick={openSearchDialog}>           
-            <SearchICon/> 
-            </IconButton>
+            <IconBtn title={"Search"} icon={<SearchIcon/>} onClick={openSearchDialog}/>
+            {/* New group button */}
+            <IconBtn title={"New Group"} icon={<AddIcon/>} onClick={openNewGroup}/>
+            {/* Group button */} 
+            <IconBtn title={"Groups"} icon={<GroupIcon/>} onClick={navigateToGroup}/>
 
-            {/* Add button */}
-            <IconButton color='inherit' size='large' onClick={openNewGroup}>
-              <AddIcon/>
-            </IconButton>
-          </Box>
+        </Box>
 
         </Toolbar>
 
@@ -73,5 +81,14 @@ const Header = () => {
      </>
   )
 }
+
+const IconBtn = ({title , icon , onClick}) => {
+  return(
+    <Tooltip title={title}>
+    <IconButton color='inherit' size='large' onClick={onClick}>
+      {icon}
+    </IconButton>
+  </Tooltip>
+)} 
 
 export default Header
