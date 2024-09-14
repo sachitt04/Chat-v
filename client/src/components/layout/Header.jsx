@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from 'react'
 import { useState } from 'react'
-import { AppBar, Box ,IconButton,Toolbar, Tooltip, Typography } from '@mui/material'
+import { AppBar, Backdrop, Box ,IconButton,Toolbar, Tooltip, Typography } from '@mui/material'
 import { orange ,} from '../../constants/color'
 import {Menu as MenuIcon, Search as SearchIcon,Add as AddIcon,
 Group as GroupIcon, Notifications as Notification}from '@mui/icons-material';
@@ -73,7 +73,7 @@ const [isNotification,setIsNotification] = useState(false)
             display:{
               xs:"block",sm:"none"}}}>
 
-                {/* Menu button */}
+              {/* Menu button */}
             <IconButton color='inherit' onClick={handleMobile}>
               <MenuIcon /> 
             </IconButton>
@@ -99,17 +99,17 @@ const [isNotification,setIsNotification] = useState(false)
      </Box>
 
      {isSearch && (
-         <Suspense fallback={<div>Loading...</div>}>
+         <Suspense fallback={ <Backdrop open/>}>
          <Search/>
          </Suspense>
       )}
       {isGroup && (
-         <Suspense fallback={<div>Loading...</div>}>
+         <Suspense fallback={<Backdrop open/>}>
          <NewGroup/>
          </Suspense>
       )}
       {isNotification && (
-         <Suspense fallback={<div>Loading...</div>}>
+         <Suspense fallback={<Backdrop open/>}>
          <Notifications/>
          </Suspense>
       )}
