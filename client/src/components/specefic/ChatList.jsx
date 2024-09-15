@@ -12,7 +12,7 @@ handleDeleteChat,}) => {
         {
             chats.map((data)=>{
                 return(
-                     <div>nothing</div>
+                     <div></div>
                 )
             }
    
