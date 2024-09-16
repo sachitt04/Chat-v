@@ -2,11 +2,9 @@ import React from 'react'
 import { Stack } from '@mui/material'
 import ChatItem from '../Shared/ChatItem'
 
-const ChatList = ({w="100%",chats=[],chatId,onlineUsers=[],newMessagesAlert=[
-    {
-        chatId:"",count:0
-    }
-],
+const ChatList = ({w="100%",chats=[],chatId,onlineUsers=[],
+    newMessagesAlert=[{
+        chatId:"",count:0 }],
 handleDeleteChat,}) => {
   return (
      <Stack width={w} direction={"column"}>
@@ -18,6 +16,7 @@ handleDeleteChat,}) => {
                 const isOnline = members.some((member)=>member.id === _id);
                 
                 return<ChatItem 
+                index={index}
                 newMessageAlert={newMessageAlert} 
                 isOnline={isOnline} 
                 avatar={avatar}
@@ -26,11 +25,8 @@ handleDeleteChat,}) => {
                 key={_id} 
                 groupChat={groupChat}
                 sameSender={chatId === _id}
-                handleDeleteChatOpen={handleDeleteChat}
-                index={index}
-                 
-                 chatId={chatId}
-                  
+                handleDeleteChatOpen={handleDeleteChat}                
+                //  chatId={chatId}       
                   />
                 
             })}
