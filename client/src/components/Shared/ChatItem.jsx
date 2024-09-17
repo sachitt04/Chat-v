@@ -2,7 +2,6 @@
  import { Link } from '../styles/StyledComponents'
  import { Box, Stack, Typography } from '@mui/material'
  import AvatarCard from './AvatarCard'
-
 const ChatItem = ({
   avatar = [],
   name,

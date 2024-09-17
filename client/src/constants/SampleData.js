@@ -1,15 +1,15 @@
  
 export const sampleChats = [{
- avatar: ["https://www.w3shools.com/howto/img_avatar.png"],
+ avatar: ["https://cdn.dribbble.com/users/7057015/screenshots/15127355/media/c7dc9c831203af8e075217bc74ea8426.png?resize=1000x750&vertical=center"],
  name: "John Doe",
  _id: "1",
- groupChat: false,
+ groupChat: true,
  members:["1","2"],
   
  
 },
 {
-    avatar: ["https://www.w3shools.com/howto/img_avatar.png"],
+    avatar: ["https://comicvine.gamespot.com/a/uploads/scale_super/11160/111608997/9006473-5119708273-xxZFu.png"],
     name: "John boi",
     _id: "2",
     groupChat: false,
