@@ -13,7 +13,7 @@ handleDeleteChat,}) => {
                 const { avatar,_id,name,groupChat,members} = data
                 const newMessageAlert = newMessagesAlert
                 .find((alert)=>alert.chatId === _id);
-                const isOnline = members.some((member)=>member.id === _id);
+                const isOnline = members?.some((member)=> onlineUsers.includes(_id));
                 
                 return<ChatItem 
                 index={index}
@@ -25,7 +25,7 @@ handleDeleteChat,}) => {
                 key={_id} 
                 groupChat={groupChat}
                 sameSender={chatId === _id}
-                handleDeleteChatOpen={handleDeleteChat}                
+                handleDeleteChat={handleDeleteChat}                
                 //  chatId={chatId}       
                   />
                 
